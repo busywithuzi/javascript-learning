@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passwortvalidierung</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <form>
+        <div class="container">
+            <label for="psw"><b>Passwort</b></label>
+            <input type="text" placeholder="Passwort eingeben" name="psw" id="passwordInput" required
+            onkeyup="onPasswordChanged()"> <!-- onkeyup, also wenn eine Taste losgelassen wird, dann wird die Funktion in JavaScript ausgeführt. -->
+            <p id="msg"></p>   <!-- Wichtig ist auch, dass <input> Element mit .value wird in JavaScript die Eingabe des Nutzers in eine Variable gespeichert. -->
+            <button type="submit" id="passwordButton" disabled="true">Passwort speichern</button>
+        </div>
+    </form>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

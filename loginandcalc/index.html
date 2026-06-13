@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <p>Username</p>
+    <input oninput="login()" id="username">
+    <p>Email</p>
+    <input oninput="login()" id="email">
+    <p>Passwort</p>
+    <input id="onInput">
+    <p id="info"></p>
+    <p id="ausgabe"></p>
+    <button onclick="registerClick()">Registrieren</button>
+
+    <p>Kleiner Taschenrechner: </p>
+    <input id="rechnerfeld1">
+    <input id="rechnerfeld2">
+    <button onclick="addieren()">+</button>
+    <button onclick="subtrahieren()">-</button>
+    <button onclick="multiplizieren()">*</button>
+    <button onclick="dividieren()">/</button>
+    <p id="ergebnis"></p>
+
+    <button onclick="vergleichen()">Vergleichen</button>
+    <p id="vergleicht"></p>
+
+    <script src="index.js"></script>
+</body>
+</html>
