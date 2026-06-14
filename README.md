@@ -69,13 +69,3 @@ Every learning session is tracked and new projects are added regularly.
 ---
 
 Learning by building. 💻
-
-
-## Lernprinzip
-
-Jeder Lerntag wird dokumentiert.
-Neue Projekte und Übungen werden regelmäßig hinzugefügt.
-
----
-
-Learning by building. 💻
