@@ -8,12 +8,22 @@
 <body>
     <p>Kontostand:</p>
     <p id="balance"></p>
+
     <input id="amount">
+
     <button onclick="withdrawMoney()">Abheben</button>
     <button onclick="depositMoney()">Einzahlen</button>
+
     <p id="feedback"></p>
-    <button onclick="resetMoney()">Zurücksetzen</button>
+    <button onclick="resetAll()">Zurücksetzen</button>
     <p id="lastaction"></p>
+
+    <p id="withdrawtransaction"></p>
+    <p id="deposittransaction"></p>
+    <p id="transactions"></p>
+
+    <p id="withdraws"></p>
+    <p id="deposits"></p>
 
     <script src="index.js"></script>
 </body>

@@ -3,6 +3,20 @@ let input;
 let feedback;
 let lastAction;
 
+let withdrawTransaction;
+let depositTransaction;
+let transactions;
+
+let withdrawCount = 0
+let depositCount = 0
+let transactionCount = 0
+
+let withdraws;
+let deposits;
+
+let allwithdraws = 0
+let alldeposits = 0
+
 let defaultBalance = 1000
 let userBalance = defaultBalance
 
@@ -12,22 +26,42 @@ onload = () => {
     feedback = document.getElementById("feedback")
     lastAction = document.getElementById("lastaction")
 
-    balance.textContent = userBalance
-}
+    withdrawTransaction = document.getElementById("withdrawtransaction")
+    depositTransaction = document.getElementById("deposittransaction")
+    transactions = document.getElementById("transactions")
+
+    withdraws = document.getElementById("withdraws")
+    deposits = document.getElementById("deposits")
+
+    updateBalance()
+    updateStats()
+}   
 
 function updateBalance() {
-    balance.textContent = userBalance
+    balance.textContent = userBalance + "$"
+}
+
+function updateStats() {
+    withdrawTransaction.textContent = "Auszahlungen: " + withdrawCount
+    depositTransaction.textContent = "Einzahlungen: " + depositCount
+    transactions.textContent = "Transaktionen: " + transactionCount
+
+    withdraws.textContent = "Ingesamt ausgezahlt: " + allwithdraws + "$"
+    deposits.textContent = "Ingesamt eingezahlt: " + alldeposits + "$"
 }
 
 function validateAmount(amount) {
-    if (amount === "") {
+    if (input.value === "") {
         return "Bitte gebe eine Zahl ein!"
+    }
+    if (isNaN(amount)) {
+        return "Fehler! Gib eine gültige Zahl ein!"
     }
     if (amount < 0) {
         return "Keine negativen Zahlen!"
     }
     if (amount === 0) {
-        return "Du kannst 0$ nicht auszahlen!"
+        return "Fehler! Gib eine gültige Zahl ein!"
     }
     
     return null
@@ -38,12 +72,12 @@ function withdrawMoney() {
     let errorMessage = validateAmount(inputAmount)
 
     if (errorMessage !== null) {
-    feedback.textContent = errorMessage
-    return
+        feedback.textContent = errorMessage
+        return
     }
     if (inputAmount > userBalance) {
-    feedback.textContent = "Nicht genügend Geld vorhanden Kontostand: " + userBalance
-    return
+        feedback.textContent = "Nicht genügend Geld vorhanden Kontostand: " + userBalance
+        return
     }
 
     feedback.textContent = "Du hast " + inputAmount + "$ ausgezahlt!"
@@ -51,6 +85,11 @@ function withdrawMoney() {
     updateBalance()
     lastAction.textContent = "Letzte Aktion: " + inputAmount + "$ ausgezahlt!"
     input.value = ""
+
+    allwithdraws = allwithdraws + inputAmount
+    withdrawCount = withdrawCount + 1
+    transactionCount = transactionCount + 1
+    updateStats()
 }
 
 function depositMoney() {
@@ -58,19 +97,29 @@ function depositMoney() {
     let errorMessage = validateAmount(inputAmount)
 
     if (errorMessage !== null) {
-    feedback.textContent = errorMessage
-    return
+        feedback.textContent = errorMessage
+        return
     }
-
-// hier kommt nur noch die Einzahlung
     feedback.textContent = "Du hast " + inputAmount + "$ eingezahlt!"
     userBalance = userBalance + inputAmount
     updateBalance()
     lastAction.textContent = "Letzte Aktion: " + inputAmount + "$ eingezahlt!"
     input.value = ""
+
+    alldeposits = alldeposits + inputAmount
+    transactionCount = transactionCount + 1
+    depositCount = depositCount + 1
+    updateStats()
 }
 
-function resetMoney() {
+function resetAll() {
+    withdrawCount = 0
+    depositCount = 0
+    transactionCount = 0
+    allwithdraws = 0
+    alldeposits = 0
+    updateStats()
+
     userBalance = defaultBalance
     updateBalance()
 
