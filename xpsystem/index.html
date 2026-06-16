@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XP-System</title>
+  <script src="./index.js" defer></script> <!-- Defer = Kein onload nötig -->
+</head>
+<body>
+  <main>
+    <h1>XP-System</h1>
+
+    <section aria-labelledby="xp-status-title">
+      <h2 id="xp-status-title">Aktueller Stand</h2>
+      <p>Aktuelle XP: <span id="current-xp"></span></p>
+    </section>
+
+    <section aria-labelledby="xp-control-title">
+      <h2 id="xp-control-title">XP verwalten</h2>
+
+      <label for="xp-input">XP eingeben</label>
+      <input type="number" id="xp-input" name="xp-input" placeholder="z. B. 10">
+
+      <button onclick="addXp()" type="button">XP hinzuf&uuml;gen</button>
+      <button onclick="removeXp()" type="button">XP abziehen</button>
+      <button onclick="resetXp()" type="button">XP zur&uuml;cksetzen</button>
+    </section>
+
+    <section aria-labelledby="feedback-title">
+      <h2 id="feedback-title">Feedback</h2>
+      <p>Meldung: <span id="message-field"></span></p>
+      <p>Letzte Aktion: <span id="last-action-field"></span></p>
+    </section>
+  </main>
+</body>
+</html>
