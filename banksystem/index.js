@@ -17,6 +17,14 @@ let deposits;
 let allwithdraws = 0
 let alldeposits = 0
 
+let highestwithdraw;
+let highestdeposit;
+
+let biggestwithdraw = 0
+let biggestdeposit = 0
+
+let currentStatus;
+
 let defaultBalance = 1000
 let userBalance = defaultBalance
 
@@ -33,6 +41,12 @@ onload = () => {
     withdraws = document.getElementById("withdraws")
     deposits = document.getElementById("deposits")
 
+    highestwithdraw = document.getElementById("highestwithdraw")
+    highestdeposit = document.getElementById("highestdeposit")
+
+    currentStatus = document.getElementById("status")
+
+    updateStatus()
     updateBalance()
     updateStats()
 }   
@@ -46,9 +60,35 @@ function updateStats() {
     depositTransaction.textContent = "Einzahlungen: " + depositCount
     transactions.textContent = "Transaktionen: " + transactionCount
 
-    withdraws.textContent = "Ingesamt ausgezahlt: " + allwithdraws + "$"
-    deposits.textContent = "Ingesamt eingezahlt: " + alldeposits + "$"
+    withdraws.textContent = "Insgesamt ausgezahlt: " + allwithdraws + "$"
+    deposits.textContent = "Insgesamt eingezahlt: " + alldeposits + "$"
+
+    highestwithdraw.textContent = "Höchste Auszahlung: " + biggestwithdraw + "$"
+    highestdeposit.textContent = "Höchste Einzahlung: " + biggestdeposit + "$"
 }
+
+function updateStatus() {
+    if (userBalance === 0) {
+        currentStatus.textContent = "Status: Pleite"
+        return
+    }
+    if (userBalance > 0 && userBalance < 500) {
+        currentStatus.textContent = "Status: Niedrig"
+        return
+    }
+    if (userBalance >= 500 && userBalance < 1000) {
+        currentStatus.textContent = "Status: Okay"
+        return
+    }
+    if (userBalance >= 1000 && userBalance < 2000) {
+        currentStatus.textContent = "Status: Stabil"
+        return
+    }
+    if (userBalance >= 2000) {
+        currentStatus.textContent = "Status: Sehr gut"
+        return
+    }
+}       
 
 function validateAmount(amount) {
     if (input.value === "") {
@@ -89,7 +129,12 @@ function withdrawMoney() {
     allwithdraws = allwithdraws + inputAmount
     withdrawCount = withdrawCount + 1
     transactionCount = transactionCount + 1
+
+    if (inputAmount > biggestwithdraw) {
+        biggestwithdraw = inputAmount
+    }
     updateStats()
+    updateStatus()
 }
 
 function depositMoney() {
@@ -109,7 +154,14 @@ function depositMoney() {
     alldeposits = alldeposits + inputAmount
     transactionCount = transactionCount + 1
     depositCount = depositCount + 1
+
+    if (inputAmount > biggestdeposit) {
+        biggestdeposit = inputAmount
+    }
+
     updateStats()
+    updateStatus()
+
 }
 
 function resetAll() {
@@ -118,10 +170,13 @@ function resetAll() {
     transactionCount = 0
     allwithdraws = 0
     alldeposits = 0
+    biggestwithdraw = 0
+    biggestdeposit = 0
     updateStats()
 
     userBalance = defaultBalance
     updateBalance()
+    updateStatus()
 
     feedback.textContent = "Balance zurückgesetzt!"
     lastAction.textContent = "Letzte Aktion: Konto zurückgesetzt"
