@@ -1,9 +1,7 @@
-
 let xpDisplay;
 let xpInput;
 let xpFeedback;
 let lastAction;
-
 let currentXP = 0
 
 xpDisplay = document.getElementById("current-xp")
@@ -11,7 +9,6 @@ xpInput = document.getElementById("xp-input")
 xpFeedback = document.getElementById("message-field")
 lastAction = document.getElementById("last-action-field")
 updateXP()
-
 
 function updateXP() {
     xpDisplay.textContent = currentXP
@@ -31,8 +28,13 @@ function validateInput(input) {
     if (input === 0) {
         return "Gebe eine gültige Zahl ein!"
     }
-
     return null
+}
+
+function showError(message) {
+    xpFeedback.textContent = message
+    lastAction.textContent = "Fehler!"
+    xpInput.value = ""
 }
 
 function addXp () {
@@ -40,16 +42,13 @@ function addXp () {
     let errorMessage = validateInput(inputValue)
 
     if (errorMessage !== null) {
-        xpFeedback.textContent = errorMessage
-        lastAction.textContent = "Fehler!"
-        xpInput.value = ""
+        showError(errorMessage)
         return
     }
     currentXP = currentXP + inputValue
     xpFeedback.textContent = "Du hast erfolgreich " + inputValue + "XP hinzugefügt!"
     lastAction.textContent = inputValue + "XP hinzugefügt"
     updateXP()
-
 }
 
 function removeXp () {
@@ -57,20 +56,17 @@ function removeXp () {
     let errorMessage = validateInput(inputValue)
 
     if (errorMessage !== null) {
-        xpFeedback.textContent = errorMessage
-        lastAction.textContent = "Fehler!"
-        xpInput.value = ""
+        showError(errorMessage)
         return
     }
     if (inputValue > currentXP) {
-        xpFeedback.textContent = "Du hast nicht genug XP um " + xpInput.value + "XP abzuziehen!"
+        xpFeedback.textContent = "Du hast nicht genug XP um " + inputValue + "XP abzuziehen!"
         lastAction.textContent = "Fehler!"
         xpInput.value = ""
         return
     }
-
     currentXP = currentXP - inputValue
-    xpFeedback.textContent = "Du hast erfolgreich " + xpInput.value + "XP abgezogen!"
+    xpFeedback.textContent = "Du hast erfolgreich " + inputValue + "XP abgezogen!"
     lastAction.textContent = inputValue + "XP abgezogen"
     xpInput.value = ""
     updateXP()
